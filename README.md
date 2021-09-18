@@ -18,7 +18,7 @@ This driver supports the following versions of GStreamer:
 
 Ubuntu Installation
 ------------------------
-Assuming the CARMA Platform is installed under `~/carma_ws/carma/src`,
+Assuming the CARMA Platform is installed at `~/carma_ws/carma/src`,
 ```
 cd ~/carma_ws/carma/src
 git clone https://github.com/VT-ASIM-LAB/gstreamer_camera_driver.git
@@ -40,6 +40,7 @@ This can be run as both a node and a nodelet.
 #### Topics
 * `camera/image_raw`
 * `camera/camera_info`
+* `camera/driver_discovery`
 
 #### Services
 * `camera/set_camera_info`
@@ -56,5 +57,4 @@ This can be run as both a node and a nodelet.
 Examples
 --------
 
-See the example launchfiles in the launch directory. Each launch file launches
-a Leopard Imaging LI-IMX390 camera connected via a TCP/IP connection.
+See the example launch files in the launch directory. Each launch file launches a Leopard Imaging LI-IMX390 camera connected via a TCP/IP connection.
