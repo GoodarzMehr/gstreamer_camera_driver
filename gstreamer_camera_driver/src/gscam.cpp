@@ -15,10 +15,12 @@ extern "C" {
 #include <camera_info_manager/camera_info_manager.h>
 
 #include <sensor_msgs/Image.h>
+#include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/CompressedImage.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/SetCameraInfo.h>
 #include <sensor_msgs/image_encodings.h>
+#include <cav_msgs/DriverStatus.h>
 
 #include <camera_calibration_parsers/parse_ini.h>
 
@@ -246,12 +248,15 @@ namespace gscam {
     // Create ROS camera interface
     if (image_encoding_ == "jpeg") {
       
-      jpeg_pub_ = nh_.advertise<sensor_msgs::CompressedImage>("camera/image_raw/compressed", 1);
-      cinfo_pub_ = nh_.advertise<sensor_msgs::CameraInfo>("camera/camera_info", 1);
+      jpeg_pub_ = nh_.advertise<sensor_msgs::CompressedImage>("camera/image_raw/compressed", 10);
+      cinfo_pub_ = nh_.advertise<sensor_msgs::CameraInfo>("camera/camera_info", 10, true);
 
     } else {
-      camera_pub_ = image_transport_.advertiseCamera("camera/image_raw", 1);
+      camera_pub_ = image_transport_.advertiseCamera("camera/image_raw", 10, true);
     }
+
+    discovery_pub_ = nh_.advertise<cav_msgs::DriverStatus>("camera/driver_discovery", 10);
+    ros::Time last_discovery_pub_ = ros::Time::now();
 
     return true;
 
@@ -261,6 +266,10 @@ namespace gscam {
   {
     
     ROS_INFO_STREAM("Publishing stream...");
+    cav_msgs::DriverStatus discovery_msg;
+
+    discovery_msg.name = "/hardware_interface/camera";
+    discovery_msg.camera = true;
 
     // Pre-roll camera if needed
     if (preroll_) {
@@ -274,10 +283,12 @@ namespace gscam {
       if (gst_element_get_state(pipeline_, NULL, NULL, -1) == GST_STATE_CHANGE_FAILURE) {
         
         ROS_ERROR("Failed to PLAY during preroll.");
+        discovery_msg.status = cav_msgs::DriverStatus::FAULT;
         return;
 
       } else {
         ROS_DEBUG("Stream is PLAYING in preroll.");
+        discovery_msg.status = cav_msgs::DriverStatus::OPERATIONAL;
       }
       
       gst_element_set_state(pipeline_, GST_STATE_PAUSED);
@@ -285,10 +296,12 @@ namespace gscam {
       if (gst_element_get_state(pipeline_, NULL, NULL, -1) == GST_STATE_CHANGE_FAILURE) {
         
         ROS_ERROR("Failed to PAUSE.");
+        discovery_msg.status = cav_msgs::DriverStatus::FAULT;
         return;
 
       } else {
         ROS_INFO("Stream is PAUSED in preroll.");
+        discovery_msg.status = cav_msgs::DriverStatus::OPERATIONAL;
       }
 
     }
@@ -296,11 +309,13 @@ namespace gscam {
     if(gst_element_set_state(pipeline_, GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
       
       ROS_ERROR("Could not start stream!");
+      discovery_msg.status = cav_msgs::DriverStatus::FAULT;
       return;
 
     }
 
     ROS_INFO("Started stream.");
+    discovery_msg.status = cav_msgs::DriverStatus::OPERATIONAL;
 
     // Poll the data as fast as possible
     while(ros::ok()) 
@@ -365,6 +380,7 @@ namespace gscam {
       // Update header information
       sensor_msgs::CameraInfo cur_cinfo = camera_info_manager_.getCameraInfo();
       sensor_msgs::CameraInfoPtr cinfo;
+
       cinfo.reset(new sensor_msgs::CameraInfo(cur_cinfo));
 
       if (use_gst_timestamps_) {
@@ -431,8 +447,14 @@ namespace gscam {
         }
         std::copy(buf_data, (buf_data) + (buf_size), img->data.begin());
 
+        cv_bridge::CvImagePtr cv_ptr;
+
+        cv_ptr = cv_bridge::toCvCopy(img, sensor_msgs::image_encodings::BGR8);
+
         // Publish the image/info
-        camera_pub_.publish(img, cinfo);
+        camera_pub_.publish(cv_ptr->toImageMsg(), cinfo);
+
+        discovery_msg.status = cav_msgs::DriverStatus::OPERATIONAL;
 
       }
 
@@ -447,6 +469,13 @@ namespace gscam {
 #endif
         
         gst_buffer_unref(buf);
+      }
+
+      if (last_discovery_pub_ == ros::Time(0) || (ros::Time::now() - last_discovery_pub_).toSec() > 0.8)
+      {
+        discovery_pub_.publish(discovery_msg);
+
+        last_discovery_pub_ = ros::Time::now();
       }
 
       ros::spinOnce();

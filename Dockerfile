@@ -28,7 +28,8 @@ RUN set -xe \
 && useradd -o -u ${BUILD_UID} -d ${BUILD_HOME} -rm -s /bin/bash -g build build
 
 # Install build dependencies using rosdep
-COPY --chown=build:build gstreamer_camera_driver/package.xml ${GST_SDK_PATH}/gstreamer_camera_driver/package.xml
+COPY --chown=build:build dummy/package.xml ${GST_SDK_PATH}/gstreamer_camera_driver/package.xml
+COPY --chown=build:build cav_msgs/package.xml ${GST_SDK_PATH}/cav_msgs/package.xml
 
 RUN set -xe \
 && apt-get update \
@@ -39,8 +40,11 @@ RUN set -xe \
 RUN sudo git clone --depth 1 https://github.com/vishnubob/wait-for-it.git ~/.base-image/wait-for-it &&\
     sudo mv ~/.base-image/wait-for-it/wait-for-it.sh /usr/bin
 
+RUN rm ${GST_SDK_PATH}/gstreamer_camera_driver/package.xml
+
 # Set up build environment
 COPY --chown=build:build gstreamer_camera_driver ${GST_SDK_PATH}/gstreamer_camera_driver
+COPY --chown=build:build cav_msgs ${GST_SDK_PATH}/cav_msgs
 
 USER build:build
 WORKDIR ${BUILD_HOME}

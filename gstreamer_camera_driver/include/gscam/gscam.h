@@ -66,6 +66,10 @@ namespace gscam {
       // Case of a jpeg only publisher
       ros::Publisher jpeg_pub_;
       ros::Publisher cinfo_pub_;
+
+      // Driver discovery publisher
+      ros::Publisher discovery_pub_;
+      ros::Time last_discovery_pub_;
       
   };
 
