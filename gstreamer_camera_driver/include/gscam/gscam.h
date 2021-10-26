@@ -14,6 +14,11 @@ extern "C"{
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/SetCameraInfo.h>
+#include <sensor_msgs/image_encodings.h>
+
+#include <cv_bridge/cv_bridge.h>
+
+#include <cav_msgs/DriverStatus.h>
 
 #include <stdexcept>
 
