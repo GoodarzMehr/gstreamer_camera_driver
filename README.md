@@ -12,7 +12,7 @@ This driver supports the following versions of GStreamer:
 
 #### 1.0.x: Experimental
 
-Ubuntu Installation
+Ubuntu 20.04 Installation
 ------------------------
 Assuming the CARMA Platform is installed at `~/carma_ws/carma/src`,
 ```
