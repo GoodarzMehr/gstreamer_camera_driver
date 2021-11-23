@@ -1,18 +1,14 @@
 CARMA GStreamer Camera Driver
 ===========================================================================================================================
 
-This is a fork of the [ROS GSCam](https://github.com/ros-drivers/gscam) package
-that is used for broadcasting any [GStreamer](http://gstreamer.freedesktop.org/)-based
-video stream via the standard [ROS Camera API](http://ros.org/wiki/camera_drivers).
-This fork has been modified to build a Docker image that can serve as a camera driver
-for the [CARMA Platform](https://github.com/usdot-fhwa-stol/carma-platform).
+This is a fork of the [ROS GSCam](https://github.com/ros-drivers/gscam) package that is used for broadcasting any [GStreamer](http://gstreamer.freedesktop.org/)-based video stream via the standard [ROS Camera API](http://ros.org/wiki/camera_drivers). This fork has been modified to allow construction of a Docker image that can serve as a camera driver for the [CARMA Platform](https://github.com/usdot-fhwa-stol/carma-platform).
 
 GStreamer Library Support
 -------------------------
 
 This driver supports the following versions of GStreamer:
 
-#### 0.1.x: _Default_
+#### 0.1.x: Default
 
 #### 1.0.x: Experimental
 
@@ -25,7 +21,28 @@ git clone https://github.com/VT-ASIM-LAB/gstreamer_camera_driver.git
 cd gstreamer_camera_driver/docker
 sudo ./build-image.sh -d
 ```
-After the Docker image is built, add it to the appropriate `docker-compose.yml` file in the `carma-config` directory.
+After the Docker image is successfully built, add the following lines to the appropriate `docker-compose.yml` file in the `carma-config` directory.
+```
+gstreamer-camera-driver:
+    image: usdotfhwastoldev/carma-gstreamer-camera-driver:develop
+    container_name: gstreamer-camera-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=127.0.0.1
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c '. ./devel/setup.bash && export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=gstreamer_camera'
+```
+Finally, add the following lines to the `drivers.launch` file in the same directory as `docker-compose.yml`.
+```
+<include if="$(arg gstreamer_camera)" file="$(find gscam_driver)/launch/left_imx390.launch">
+</include>
+```
+`left_imx390.launch` is used as an example here and can be replaced with any other launch file in the `gstreamer_camera_driver/launch` directory.
 
 ROS API (stable)
 ----------------
@@ -38,12 +55,12 @@ This can be run as both a node and a nodelet.
 * `gscam`
 
 #### Topics
-* `camera/image_raw`
-* `camera/camera_info`
-* `camera/driver_discovery`
+* `camera/image_raw`: publishes the video stream obtained from the camera.
+* `camera/camera_info`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
+* `camera/driver_discovery`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message.
 
 #### Services
-* `camera/set_camera_info`
+* `camera/set_camera_info`: sets the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
 
 #### Parameters
 * `~camera_name`: The name of the camera (corrsponding to the camera info)
@@ -57,4 +74,4 @@ This can be run as both a node and a nodelet.
 Examples
 --------
 
-See the example launch files in the launch directory. Each launch file launches a Leopard Imaging LI-IMX390 camera connected via a TCP/IP connection.
+See the example launch files in the `gstreamer_camera_driver/launch` directory. Each launch file launches a Leopard Imaging LI-IMX390 camera connected via a TCP/IP connection.
