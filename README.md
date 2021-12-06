@@ -60,7 +60,7 @@ This can be run as both a node and a nodelet.
 * `camera/driver_discovery`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message.
 
 #### Services
-* `camera/set_camera_info`: sets the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
+* `camera/set_camera_info`
 
 #### Parameters
 * `~camera_name`: The name of the camera (corrsponding to the camera info)
