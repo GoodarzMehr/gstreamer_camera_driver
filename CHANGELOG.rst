@@ -2,6 +2,11 @@
 Changelog for CARMA GStreamer Camera Driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.0 (2021-12-06)
+------------------
+* Upgraded to ROS Noetic, GStreamer 1.0 now set as default.
+
+
 1.0.0 (2021-09-17)
 ------------------
 * Updated README.md file.
