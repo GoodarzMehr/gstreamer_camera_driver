@@ -15,9 +15,9 @@ RUN set -xue \
  build-essential cmake \
  fakeroot dpkg-dev debhelper \
  $PY-rosdep $PY-rospkg $PY-bloom \
-&& apt-get install -y gstreamer0.10-x \
-&& apt-get install -y gstreamer0.10-plugins-base \
- gstreamer0.10-plugins-base-apps gstreamer0.10-plugins-good
+&& apt-get install -y gstreamer1.0-x \
+&& apt-get install -y gstreamer1.0-plugins-base \
+ gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-good
 
 # Set up non-root build user
 ARG BUILD_UID=1000
