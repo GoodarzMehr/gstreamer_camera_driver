@@ -14,9 +14,9 @@ This driver supports the following versions of GStreamer:
 
 Ubuntu 20.04 Installation
 ------------------------
-Assuming the CARMA Platform is installed at `~/carma_ws/carma/src`,
+Assuming the CARMA Platform is installed at `~/carma_ws/src`,
 ```
-cd ~/carma_ws/carma/src
+cd ~/carma_ws/src
 git clone https://github.com/VT-ASIM-LAB/gstreamer_camera_driver.git
 cd gstreamer_camera_driver/docker
 sudo ./build-image.sh -d
