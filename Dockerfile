@@ -1,4 +1,4 @@
-ARG ROS_DISTRO=kinetic
+ARG ROS_DISTRO=noetic
 
 FROM ros:${ROS_DISTRO}-ros-core AS build-env
 ENV DEBIAN_FRONTEND=noninteractive \
