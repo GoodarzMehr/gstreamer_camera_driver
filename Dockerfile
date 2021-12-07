@@ -13,7 +13,7 @@ RUN set -xue \
 && apt-get update \
 && apt-get install -y \
  build-essential cmake \
- fakeroot dpkg-dev debhelper \
+ fakeroot dpkg-dev debhelper git \
  $PY-rosdep $PY-rospkg $PY-bloom \
 && apt-get install -y gstreamer1.0-x \
 && apt-get install -y gstreamer1.0-plugins-base \
