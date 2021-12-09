@@ -8,7 +8,7 @@ GStreamer Library Support
 
 This driver supports the following versions of GStreamer:
 
-#### 0.1.x: Experimental
+#### 0.1.x: Deprecated
 
 #### 1.0.x: Default
 
@@ -63,13 +63,13 @@ This can be run as both a node and a nodelet.
 * `camera/set_camera_info`
 
 #### Parameters
-* `~camera_name`: The name of the camera (corrsponding to the camera info)
-* `~camera_info_url`: A url (`file://path/to/file`, `package://pkg_name/path/to/file`) to the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
-* `~gscam_config`: The GStreamer [configuration string](http://wiki.oz9aec.net/index.php?title=Gstreamer_cheat_sheet&oldid=1829).
-* `~frame_id`: The [TF](http://www.ros.org/wiki/tf) frame ID.
-* `~reopen_on_eof`: Re-open the stream if it ends (EOF).
-* `~sync_sink`: Synchronize the app sink (sometimes setting this to `false` can resolve problems with sub-par framerates).
-* `~publish_timestamp`: Publish the timestamp of received image frames.
+* `~camera_name`: the name of the camera (corrsponding to the camera info).
+* `~camera_info_url`: a url (`file://path/to/file`, `package://pkg_name/path/to/file`) to the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
+* `~gscam_config`: the GStreamer [configuration string](http://wiki.oz9aec.net/index.php?title=Gstreamer_cheat_sheet&oldid=1829).
+* `~frame_id`: the [TF](http://www.ros.org/wiki/tf) frame ID.
+* `~reopen_on_eof`: re-open the stream if it ends (EOF).
+* `~sync_sink`: synchronize the app sink (sometimes setting this to `false` can resolve problems with sub-par framerates).
+* `~publish_timestamp`: publish the timestamp of received image frames.
 
 Examples
 --------
