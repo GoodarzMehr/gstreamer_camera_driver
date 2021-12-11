@@ -24,18 +24,18 @@ sudo ./build-image.sh -d
 After the Docker image is successfully built, add the following lines to the appropriate `docker-compose.yml` file in the `carma-config` directory.
 ```
 gstreamer-camera-driver:
-    image: usdotfhwastoldev/carma-gstreamer-camera-driver:develop
-    container_name: gstreamer-camera-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    environment:
-      - ROS_IP=127.0.0.1
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    command: bash -c '. ./devel/setup.bash && export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=gstreamer_camera'
+  image: usdotfhwastoldev/carma-gstreamer-camera-driver:develop
+  container_name: gstreamer-camera-driver
+  network_mode: host
+  volumes_from:
+    - container:carma-config:ro
+  environment:
+    - ROS_IP=127.0.0.1
+  volumes:
+    - /opt/carma/logs:/opt/carma/logs
+    - /opt/carma/.ros:/home/carma/.ros
+    - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  command: bash -c '. ./devel/setup.bash && export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=gstreamer_camera'
 ```
 Finally, add the following lines to the `drivers.launch` file in the same directory as `docker-compose.yml`.
 ```
