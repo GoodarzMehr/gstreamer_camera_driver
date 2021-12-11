@@ -57,10 +57,7 @@ FROM build-env
 
 RUN /opt/ros/${ROS_DISTRO}/env.sh catkin_make -DCMAKE_BUILD_TYPE=Release 
 
-# Entrypoint for running GStreamer driver:
-#
-# Usage: docker run --rm -it gscam_driver [launch parameters ..]
-#
+# Command for running GStreamer ROS:
 CMD ["bash", "-c", "set -e \
 && . ./devel/setup.bash \
 && roslaunch gscam_driver left_imx390.launch \
