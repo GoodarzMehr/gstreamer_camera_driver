@@ -11,7 +11,6 @@
   <author email="jbo@jhu.edu">Jonathan Bohren</author>
   <author email="tjay@cs.brown.edu">Graylin Trevor Jay</author>
   <author email="chriscrick@cs.brown.edu">Christopher Crick</author>
-  <author email="goodarzm@vt.edu">Goodarz Mehr</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 

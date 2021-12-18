@@ -1,5 +1,5 @@
-CARMA GStreamer Camera Driver
-=============================
+GStreamer Camera Driver for CARMA
+=================================
 
 This is a fork of the [ROS GSCam](https://github.com/ros-drivers/gscam) package that is used for broadcasting any [GStreamer](http://gstreamer.freedesktop.org/)-based video stream via the standard [ROS Camera API](http://ros.org/wiki/camera_drivers). This fork has been modified to allow for building a Docker image that can serve as a camera driver for the [CARMA Platform](https://github.com/usdot-fhwa-stol/carma-platform).
 
