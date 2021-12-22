@@ -468,7 +468,11 @@ namespace gscam {
 
 #endif
         
+#if(GST_VERSION_MAJOR >= 1 && GST_VERSION_MINOR >= 16)
+        gst_sample_unref(sample);
+#else
         gst_buffer_unref(buf);
+#endif
       }
 
       if (last_discovery_pub_ == ros::Time(0) || (ros::Time::now() - last_discovery_pub_).toSec() > 0.8)

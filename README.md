@@ -47,28 +47,33 @@ Finally, add the following lines to the `drivers.launch` file in the same direct
 ROS API (stable)
 ----------------
 
-### gscam
+### gscam_driver
 
 This can be run as both a node and a nodelet.
 
 #### Nodes
 * `gscam`
 
-#### Topics
-* `camera/image_raw`: publishes the video stream obtained from the camera.
-* `camera/camera_info`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
-* `camera/driver_discovery`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message.
+#### Published Topics
+* `camera/image_raw [sensor_msgs/Image]`: publishes the video stream obtained from the camera.
+* `camera/camera_info [sensor_msgs/CameraInfo]`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
+* `camera/driver_discovery [cav_msgs/DriverStatus]`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message.
+
+#### Subscribed Topics
+N/A
 
 #### Services
-* `camera/set_camera_info`
+* `set_camera_info [sensor_msgs/SetCameraInfo.srv]`: stores the given CameraInfo as the camera's calibration information.
 
 #### Parameters
 * `camera_name`: the name of the camera (corrsponding to the camera info).
 * `camera_info_url`: a url (`file://path/to/file`, `package://pkg_name/path/to/file`) to the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
-* `gscam_config`: the GStreamer [configuration string](http://wiki.oz9aec.net/index.php?title=Gstreamer_cheat_sheet&oldid=1829).
-* `frame_id`: the [TF](http://www.ros.org/wiki/tf) frame ID.
-* `reopen_on_eof`: re-open the stream if it ends (EOF).
-* `sync_sink`: synchronize the app sink (sometimes setting this to `false` can resolve problems with sub-par framerates).
+* `gscam_config`: the GStreamer [pipeline description](https://gstreamer.freedesktop.org/documentation/tutorials/basic/gstreamer-tools.html?gi-language=c).
+* `frame_id`: the [TF2](http://www.ros.org/wiki/tf2) frame ID.
+* `reopen_on_eof`: re-open the stream if it ends (EoF).
+* `sync_sink`: synchronize the `appsink` (sometimes setting this to `false` can resolve problems with sub-par framerates).
+* `preroll`: [preroll](https://gstreamer.freedesktop.org/documentation/additional/design/preroll.html?gi-language=c) the stream if needed.
+* `use_gst_timestamp`: use [GstClock](https://gstreamer.freedesktop.org/documentation/gstreamer/gstclock.html?gi-language=c) instead of [ROS Time](http://wiki.ros.org/roscpp/Overview/Time).
 * `publish_timestamp`: publish the timestamp of received image frames.
 
 Examples
