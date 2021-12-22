@@ -63,7 +63,7 @@ This can be run as both a node and a nodelet.
 N/A
 
 #### Services
-* `set_camera_info [sensor_msgs/SetCameraInfo.srv]`: stores the given CameraInfo as the camera's calibration information.
+* `set_camera_info [sensor_msgs/SetCameraInfo]`: stores the given CameraInfo as the camera's calibration information.
 
 #### Parameters
 * `camera_name`: the name of the camera (corrsponding to the camera info).
