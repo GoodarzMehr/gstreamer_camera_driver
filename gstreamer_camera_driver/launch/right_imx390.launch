@@ -1,10 +1,10 @@
 <launch>
   
   <!-- Launching GSCam package -->
-  <arg name="cam_name" value="camera_fr" />
+  <arg name="cam_name" value="right_optical" />
 
   <!-- Start the GSCAM node -->
-  <env name="GSCAM_CONFIG" value="tcpclientsrc host=192.168.88.4 port=7001 ! decodebin ! ffmpegcolorspace" />
+  <env name="GSCAM_CONFIG" value="tcpclientsrc host=192.168.88.4 port=7001 ! decodebin ! videoconvert" />
   <node pkg="gscam_driver" type="gscam" name="$(arg cam_name)">
     <param name="camera_name" value="$(arg cam_name)" />
     <param name="frame_id" value="right_optical" />
