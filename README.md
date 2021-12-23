@@ -8,9 +8,9 @@ GStreamer Library Support
 
 This driver supports the following versions of GStreamer:
 
-#### 0.1.x: Deprecated
+#### 0.10.x: Deprecated
 
-#### 1.0.x: Default
+#### 1.x: Default
 
 Ubuntu 20.04 Installation
 ------------------------
