@@ -125,7 +125,7 @@ sudo apt-get install gstreamer1.0-tools libgstreamer1.0-dev libgstreamer-plugins
 
 ### Usage:
 * Use the CMake flag `-DGSTREAMER_VERSION_1_x=On` when building
-* See the [Video4Linux2 launchfile example](examples/v4l.launch) for
+* See the [Video4Linux2 launchfile example](https://github.com/ros-drivers/gscam/blob/master/examples/v4l.launch) for
   an example of the differences in the GStreamer config lines
 
 ### Notes:
@@ -167,12 +167,12 @@ Examples
 See example launchfiles and configs in the examples directory. Currently there
 are examples for:
 
-* [Video4Linux2](examples/v4l.launch): Standard
+* [Video4Linux2](https://github.com/ros-drivers/gscam/blob/master/examples/v4l.launch): Standard
   [video4linux](http://en.wikipedia.org/wiki/Video4Linux)-based cameras like
   USB webcams.
     * ***GST-1.0:*** Use the roslaunch argument `GST10:=True` for GStreamer 1.0 variant
-* [Nodelet](examples/gscam_nodelet.launch): Run a V4L-based camera in a nodelet
-* [Video File](examples/videofile.launch): Any videofile readable by GStreamer
-* [DeckLink](examples/decklink.launch):
+* [Nodelet](https://github.com/ros-drivers/gscam/blob/master/examples/gscam_nodelet.launch): Run a V4L-based camera in a nodelet
+* [Video File](https://github.com/ros-drivers/gscam/blob/master/examples/videofile.launch): Any videofile readable by GStreamer
+* [DeckLink](https://github.com/ros-drivers/gscam/blob/master/examples/decklink.launch):
   [BlackMagic](http://www.blackmagicdesign.com/products/decklink/models)
   DeckLink SDI capture cards (note: this requires the `gst-plugins-bad` plugins)
