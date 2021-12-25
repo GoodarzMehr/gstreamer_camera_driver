@@ -13,7 +13,7 @@ This driver supports the following versions of GStreamer:
 #### 1.x: Default
 
 Ubuntu 20.04 Installation
-------------------------
+-------------------------
 Assuming the CARMA Platform is installed at `~/carma_ws/src`,
 ```
 cd ~/carma_ws/src
@@ -83,7 +83,7 @@ Examples
 See the example launch files in the `gstreamer_camera_driver/launch` directory. Each launch file launches a Leopard Imaging LI-IMX390-GMSL2 camera connected via a TCP/IP connection.
 
 Original GSCam Documentation [![Build Status](https://travis-ci.org/ros-drivers/gscam.svg?branch=master)](https://travis-ci.org/ros-drivers/gscam)
-===========================================================================================================================
+==================================================================================================================================================
 
 This is a ROS package originally developed by the [Brown Robotics Lab](http://robotics.cs.brown.edu/) for broadcasting any [GStreamer](http://gstreamer.freedesktop.org/)-based video stream via the standard [ROS Camera API](http://ros.org/wiki/camera_drivers). This fork has several fixes incorporated into it to make it broadcast correct `sensor_msgs/Image` messages with proper frames and timestamps. It also allows for more ROS-like configuration and more control over the GStreamer interface.
 
