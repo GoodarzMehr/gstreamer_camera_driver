@@ -55,8 +55,9 @@ This can be run as both a node and a nodelet.
 * `gscam`
 
 #### Published Topics
-* `camera/image_raw [sensor_msgs/Image]`: publishes the video stream obtained from the camera.
-* `camera/camera_info [sensor_msgs/CameraInfo]`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
+Publication frequencies are given for a Leopard Imaging LI-IMX390-GMSL2 camera operating at a resolution of 1920x1080 at 30 frames per second (fps).
+* `camera/image_raw [sensor_msgs/Image]`: publishes the video stream obtained from the camera (30 Hz).
+* `camera/camera_info [sensor_msgs/CameraInfo]`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats) (30 Hz).
 * `camera/driver_discovery [cav_msgs/DriverStatus]`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message (1.25 Hz).
 
 #### Subscribed Topics
