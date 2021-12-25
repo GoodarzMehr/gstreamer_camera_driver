@@ -55,7 +55,7 @@ This can be run as both a node and a nodelet.
 * `gscam`
 
 #### Published Topics
-Publication frequencies are given for a Leopard Imaging LI-IMX390-GMSL2 camera operating at a resolution of 1920x1080 at 30 frames per second (fps).
+Publication frequencies are given for a [Leopard Imaging LI-IMX390-GMSL2](https://www.leopardimaging.com/product/autonomous-camera/maxim-gmsl2-cameras/li-imx390-gmsl2/li-imx390-gmsl2-120h/) camera operating at a resolution of 1920x1080 at 30 frames per second (fps).
 * `camera/image_raw [sensor_msgs/Image]`: publishes the video stream obtained from the camera (30 Hz).
 * `camera/camera_info [sensor_msgs/CameraInfo]`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats) (30 Hz).
 * `camera/driver_discovery [cav_msgs/DriverStatus]`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message (1.25 Hz).
@@ -80,7 +80,7 @@ N/A
 Examples
 --------
 
-See the example launch files in the `gstreamer_camera_driver/launch` directory. Each launch file launches a Leopard Imaging LI-IMX390-GMSL2 camera connected via a TCP/IP connection.
+See the example launch files in the `gstreamer_camera_driver/launch` directory. Each launch file launches a [Leopard Imaging LI-IMX390-GMSL2](https://www.leopardimaging.com/product/autonomous-camera/maxim-gmsl2-cameras/li-imx390-gmsl2/li-imx390-gmsl2-120h/) camera connected via a TCP/IP connection.
 
 Original GSCam Documentation [![Build Status](https://travis-ci.org/ros-drivers/gscam.svg?branch=master)](https://travis-ci.org/ros-drivers/gscam)
 ==================================================================================================================================================
