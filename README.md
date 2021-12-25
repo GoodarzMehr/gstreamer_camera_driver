@@ -44,8 +44,8 @@ Finally, add the following lines to the `drivers.launch` file in the same direct
 ```
 `left_imx390.launch` is used as an example here and can be replaced with any other launch file in the `gstreamer_camera_driver/launch` directory.
 
-ROS API (stable)
-----------------
+ROS API
+-------
 
 ### gscam_driver
 
@@ -55,8 +55,9 @@ This can be run as both a node and a nodelet.
 * `gscam`
 
 #### Published Topics
-* `camera/image_raw [sensor_msgs/Image]`: publishes the video stream obtained from the camera.
-* `camera/camera_info [sensor_msgs/CameraInfo]`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats).
+Publication frequencies are given for a Leopard Imaging LI-IMX390-GMSL2 camera operating at a resolution of 1920x1080 at 30 frames per second (fps).
+* `camera/image_raw [sensor_msgs/Image]`: publishes the video stream obtained from the camera (30 Hz).
+* `camera/camera_info [sensor_msgs/CameraInfo]`: publishes the [camera calibration file](http://www.ros.org/wiki/camera_calibration_parsers#File_formats) (30 Hz).
 * `camera/driver_discovery [cav_msgs/DriverStatus]`: publishes the CARMA [DriverStatus](https://github.com/usdot-fhwa-stol/carma-msgs/blob/develop/cav_msgs/msg/DriverStatus.msg) message (1.25 Hz).
 
 #### Subscribed Topics
@@ -71,26 +72,20 @@ N/A
 * `gscam_config`: the GStreamer [pipeline description](https://gstreamer.freedesktop.org/documentation/tutorials/basic/gstreamer-tools.html?gi-language=c).
 * `frame_id`: the [TF2](http://www.ros.org/wiki/tf2) frame ID.
 * `reopen_on_eof`: re-open the stream if it ends (EoF).
-* `sync_sink`: synchronize the `appsink` (sometimes setting this to `false` can resolve problems with sub-par framerates).
+* `sync_sink`: synchronizes `appsink` (sometimes setting this to `false` can resolve problems with sub-par frame rates).
 * `preroll`: [preroll](https://gstreamer.freedesktop.org/documentation/additional/design/preroll.html?gi-language=c) the stream if needed.
 * `use_gst_timestamp`: use [GstClock](https://gstreamer.freedesktop.org/documentation/gstreamer/gstclock.html?gi-language=c) instead of [ROS Time](http://wiki.ros.org/roscpp/Overview/Time).
-* `publish_timestamp`: publish the timestamp of received image frames.
+* `publish_timestamp`: publish the timestamp of image frames.
 
 Examples
 --------
 
-See the example launch files in the `gstreamer_camera_driver/launch` directory. Each launch file launches a Leopard Imaging LI-IMX390 camera connected via a TCP/IP connection.
+See the example launch files in the `gstreamer_camera_driver/launch` directory. Each launch file launches a Leopard Imaging LI-IMX390-GMSL2 camera connected via a TCP/IP connection.
 
 Original GSCam Documentation [![Build Status](https://travis-ci.org/ros-drivers/gscam.svg?branch=master)](https://travis-ci.org/ros-drivers/gscam)
 ===========================================================================================================================
 
-This is a ROS package originally developed by the [Brown Robotics
-Lab](http://robotics.cs.brown.edu/) for broadcasting any
-[GStreamer](http://gstreamer.freedesktop.org/)-based video stream via the
-standard [ROS Camera API](http://ros.org/wiki/camera_drivers). This fork has
-several fixes incorporated into it to make it broadcast correct
-`sensor_msgs/Image` messages with proper frames and timestamps. It also allows
-for more ROS-like configuration and more control over the GStreamer interface.
+This is a ROS package originally developed by the [Brown Robotics Lab](http://robotics.cs.brown.edu/) for broadcasting any [GStreamer](http://gstreamer.freedesktop.org/)-based video stream via the standard [ROS Camera API](http://ros.org/wiki/camera_drivers). This fork has several fixes incorporated into it to make it broadcast correct `sensor_msgs/Image` messages with proper frames and timestamps. It also allows for more ROS-like configuration and more control over the GStreamer interface.
 
 Note that this pacakge can be built both in a rosbuild and catkin workspaces.
 
@@ -112,27 +107,28 @@ Install dependencies via `rosdep`.
 * libgstreamer-plugins-base1.0-dev 
 * libgstreamer-plugins-good1.0-dev
 
-Ubuntu Install:
+Ubuntu Install
+--------------
 
-##### 12.04
+### 12.04
 
 ```sh
 sudo add-apt-repository ppa:gstreamer-developers/ppa
 sudo apt-get install gstreamer1.0-tools libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev
 ```
 
-##### 14.04
+### 14.04
 
 ```sh
 sudo apt-get install gstreamer1.0-tools libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev
 ```
 
-#### Usage:
+### Usage:
 * Use the CMake flag `-DGSTREAMER_VERSION_1_x=On` when building
-* See the [Video4Linux2 launchfile example](examples/v4l.launch) for
+* See the [Video4Linux2 launchfile example](https://github.com/ros-drivers/gscam/blob/master/examples/v4l.launch) for
   an example of the differences in the GStreamer config lines
 
-#### Notes:
+### Notes:
 * This has been tested with `v4l2src`
 
 ROS API (stable)
@@ -171,12 +167,12 @@ Examples
 See example launchfiles and configs in the examples directory. Currently there
 are examples for:
 
-* [Video4Linux2](examples/v4l.launch): Standard
+* [Video4Linux2](https://github.com/ros-drivers/gscam/blob/master/examples/v4l.launch): Standard
   [video4linux](http://en.wikipedia.org/wiki/Video4Linux)-based cameras like
   USB webcams.
     * ***GST-1.0:*** Use the roslaunch argument `GST10:=True` for GStreamer 1.0 variant
-* [Nodelet](examples/gscam_nodelet.launch): Run a V4L-based camera in a nodelet
-* [Video File](examples/videofile.launch): Any videofile readable by GStreamer
-* [DeckLink](examples/decklink.launch):
+* [Nodelet](https://github.com/ros-drivers/gscam/blob/master/examples/gscam_nodelet.launch): Run a V4L-based camera in a nodelet
+* [Video File](https://github.com/ros-drivers/gscam/blob/master/examples/videofile.launch): Any videofile readable by GStreamer
+* [DeckLink](https://github.com/ros-drivers/gscam/blob/master/examples/decklink.launch):
   [BlackMagic](http://www.blackmagicdesign.com/products/decklink/models)
   DeckLink SDI capture cards (note: this requires the `gst-plugins-bad` plugins)
